@@ -1,14 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class Counter : MonoBehaviour
 {
     [SerializeField] private TMP_Text _counter;
-    private float _delay = 0.5f;
+
     private int _currentValue = 0;
+    private WaitForSeconds _delay = new WaitForSeconds (0.5f);
     private bool _isCounting = false;
 
     private void Start()
@@ -21,14 +20,9 @@ public class Counter : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            _isCounting = true;
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            _isCounting = false;
+            _isCounting = !_isCounting;
         }
     }
-
 
     private IEnumerator ChangeCounter()
     {
@@ -39,7 +33,7 @@ public class Counter : MonoBehaviour
                 _counter.text = ($"—четчик: {++_currentValue}");
             }
 
-            yield return new WaitForSeconds(_delay);
+            yield return _delay;
         }
     }
 }
