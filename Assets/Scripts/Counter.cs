@@ -9,6 +9,7 @@ public class Counter : MonoBehaviour
     private int _currentValue = 0;
     private WaitForSeconds _delay = new WaitForSeconds(0.5f);
     private bool _isCounting = false;
+    private Coroutine _counterCoroutine;
 
     private void Start()
     {
@@ -28,12 +29,18 @@ public class Counter : MonoBehaviour
         if (_isCounting == false)
         {
             _isCounting = true;
-            StartCoroutine(nameof(IncreaseCounter));
+            _counterCoroutine = 
+            _counterCoroutine = StartCoroutine(IncreaseCounter());
         }
-        else if (_isCounting == true)
+        else
         {
             _isCounting = false;
-            StopCoroutine(nameof(IncreaseCounter));
+
+            if (_counterCoroutine != null)
+            {
+                StopCoroutine(_counterCoroutine);
+                _counterCoroutine = null;
+            }
         }
     }
 
